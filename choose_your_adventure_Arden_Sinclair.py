@@ -1,8 +1,9 @@
+from random import choice as randchoice
 from random import randint
 
 
 def fight(hp, enemy, enemy_hp, running_allowed=True):
-    print(f"You are approached by a fearsome {enemy}, what do you do?")
+    print(f"You are approached by a {randchoice(('fearsome', 'ferocious', 'evil', 'crazy'))} {enemy}, what do you do?")
     while True:
         choice = input("Attack or run?\n").lower()
         if choice == "attack":
@@ -11,8 +12,8 @@ def fight(hp, enemy, enemy_hp, running_allowed=True):
                 while True:
                     print("What do you do?")
                     choice = input("Light attack, heavy attack, or heal?\n").lower()
-                    if choice == ("heavy" or "heavy attack"):
-                        if randint(0, 2) == 0:
+                    if choice in ("heavy", "heavy attack"):
+                        if randint(0, 4) == 0:
                             print("Your heavy attack missed!")
                         else:
                             damage = randint(3, 5)
@@ -22,7 +23,7 @@ def fight(hp, enemy, enemy_hp, running_allowed=True):
                             enemy_hp = enemy_hp if enemy_hp > 0 else 0
                             print(f"Your heavy attack did {damage} damage!")
                         break
-                    elif choice == ("light" or "light attack"):
+                    elif choice in ("light", "light attack"):
                         damage = randint(1, 3)
                         enemy_hp -= damage
                         enemy_hp = enemy_hp if enemy_hp > 0 else 0
@@ -72,11 +73,11 @@ def fight(hp, enemy, enemy_hp, running_allowed=True):
 
 
 hp = 20
-print("Welcome to the dungeon!")
+print("Welcome to the dungeon adventure!")
 while True:
-    print("You are confronted with three tunnels. Which will you take?")
-    choice = input("Left, center, or right?\n").lower()
-    if choice == "left":
+    print("You are confronted with a cave opening. Will you go in and see what's inside?")
+    choice = input("Enter the cave or run away?\n").lower()
+    if choice in ("enter the cave", "enter", "go in", "cave"):
         print("You follow the tunnel, holding your torch out in front of you for light.\n"
               "Something runs quickly past your side. A sense of danger looms.\n"
               "It runs back towards you. You can now see that it's a massive rat!")
@@ -88,7 +89,7 @@ while True:
               "One of its bones looks weird and shiny. What do you do?")
         while True:
             choice = input("Grab the bone or leave it?\n").lower()
-            if choice == ("grab the bone" or "grab"):
+            if choice in ("grab the bone", "grab it", "grab"):
                 print("The wall behind you creaks and splits, revealing a secret passage!\n"
                       "There is a skeleton guarding the passage with a sword and shield!")
                 hp = fight(hp, "Skeleton", 15)
@@ -106,11 +107,11 @@ while True:
                               "You can try the key and see what's behind. What do you do?")
                         while True:
                             choice = input("Try the key or run away?\n").lower()
-                            if choice == ("try the key" or "key"):
+                            if choice in ("try the key", "key"):
                                 print("The key fits and turns, revealing a room full of gold and gems!\n"
                                       "Congratulations, you win!")
                                 exit()
-                            elif choice == ("run away" or "run"):
+                            elif choice in ("run away", "run"):
                                 print("You run away from the door in fear of a trap. You find yourself back\n"
                                       "at the start of the cave.")
                                 break
@@ -123,15 +124,15 @@ while True:
                         hp = fight(hp, "Poisonous Bat", 10, False)
                         hp = fight(hp, "Troll", 20, False)
                         print("With the trio dealt with, you find a key lying on the ground beside them.\n"
-                              "You see a door behind him with a keyhole about the same size as the key.\n"
+                              "You see a door behind with a keyhole about the same size as the key.\n"
                               "You can try the key and see what's behind. What do you do?")
                         while True:
                             choice = input("Try the key or run away?\n").lower()
-                            if choice == ("try the key" or "key"):
+                            if choice in ("try the key", "key"):
                                 print("The key fits and turns, revealing a room full of gold and gems!\n"
                                       "Congratulations, you win!")
                                 exit()
-                            elif choice == ("run away" or "run"):
+                            elif choice in ("run away", "run"):
                                 print("You run away from the door in fear of a trap. You find yourself back\n"
                                       "at the start of the cave.")
                                 break
@@ -140,7 +141,7 @@ while True:
                         break
                     else:
                         print("Invalid choice, try again.")
-            elif choice == ("leave it" or "leave"):
+            elif choice in ("leave it", "leave"):
                 print("You ignore the skeleton, walking further into the tunnel.\n"
                       "The tunnel opens up into a room full of lava and spikes. Looks like this wasn't\n"
                       "the path you wanted. You turn back and leave, soon finding yourself at the start\n"
@@ -148,9 +149,7 @@ while True:
                 break
             else:
                 print("Invalid choice, try again.")
-    elif choice == "right":
-        pass
-    elif choice == "center":
+    elif choice in ("run away", "run"):
         pass
     else:
         print("Invalid choice, try again.")
