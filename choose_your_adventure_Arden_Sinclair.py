@@ -150,6 +150,8 @@ while True:
             else:
                 print("Invalid choice, try again.")
     elif choice in ("run away", "run"):
-        pass
+        print("You run away from the cave, too scared of what awaits you inside.")
+        print("Game over.")
+        exit()
     else:
         print("Invalid choice, try again.")
