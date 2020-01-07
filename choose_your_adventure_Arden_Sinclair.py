@@ -1,6 +1,7 @@
 # CS20 - P4
 # Arden Sinclair
 # Jan. 06, 2020
+# Chart: https://github.com/ArdenSinclair/CS20/blob/master/CYOA%20Flowchart.png
 # Dungeon adventure game
 
 from random import choice
