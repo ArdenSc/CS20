@@ -7,6 +7,7 @@ from random import shuffle
 
 
 def print_flavors():
+    """Prints the list of flavors in a human readable way"""
     print(f"Ice cream flavors: {', '.join(ice_cream)}")
 
 
