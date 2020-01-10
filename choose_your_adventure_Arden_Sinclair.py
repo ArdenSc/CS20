@@ -8,7 +8,7 @@ from random import choice
 from random import randint
 
 
-def fight(hp, enemy, enemy_hp, running_allowed=True):
+def fight(hp, dmg_multiplier, enemy, enemy_hp, running_allowed=True):
     """Allows the player to engage in combat against an enemy.
     hp is the health of the player at the start of the fight
     enemy is the name of the enemy to be fought
@@ -32,7 +32,7 @@ def fight(hp, enemy, enemy_hp, running_allowed=True):
                         if randint(0, 4) == 0:
                             print("Your heavy attack missed!")
                         else:
-                            damage = randint(3, 5)
+                            damage = randint(3, 5) * dmg_multiplier
                             if randint(0, 1) == 0:
                                 damage *= 2
                             enemy_hp -= damage
@@ -40,13 +40,13 @@ def fight(hp, enemy, enemy_hp, running_allowed=True):
                             print(f"Your heavy attack did {damage} damage!")
                         break
                     elif selection in ("light", "light attack"):
-                        damage = randint(1, 3)
+                        damage = randint(1, 3) * dmg_multiplier
                         enemy_hp -= damage
                         enemy_hp = enemy_hp if enemy_hp > 0 else 0
                         print(f"Your light attack did {damage} damage!")
                         break
                     elif selection == "heal":
-                        heal = randint(1, 3)
+                        heal = randint(2, 4)
                         hp += heal
                         print(f"You heal yourself by {heal} health.")
                         break
@@ -95,7 +95,7 @@ def fight(hp, enemy, enemy_hp, running_allowed=True):
     return hp
 
 
-def game(hp):
+def game(hp, dmg_multiplier):
     """Contains the story and choices of the adventure game
     hp is the player's starting health
     """
@@ -115,7 +115,7 @@ def game(hp):
                 print("The rat squeaks and runs behind you. It didn't want "
                       "to bite such a fearsome foe.")
             else:
-                hp = fight(hp, "Rat", 4)
+                hp = fight(hp, dmg_multiplier, "Rat", 4)
                 if hp == 0:
                     return
             print("You continue on, finding a skeleton leaned against the "
@@ -128,7 +128,7 @@ def game(hp):
                           "a secret passage!\n"
                           "There is a skeleton guarding the passage with a "
                           "sword and shield!")
-                    hp = fight(hp, "Skeleton", 15)
+                    hp = fight(hp, dmg_multiplier, "Skeleton", 15)
                     if hp == 0:
                         return
                     print("With the skeleton gone, you trudge on, "
@@ -143,7 +143,7 @@ def game(hp):
                                   "RRRRRROOOOOAAAAARRRRR!\n"
                                   "A giant Ogre appears out of the smoke in "
                                   "front of you!")
-                            hp = fight(hp, "Ogre", 50, False)
+                            hp = fight(hp, dmg_multiplier, "Ogre", 50, False)
                             if hp == 0:
                                 return
                             print("With his dying breath, the Ogre pulls out "
@@ -172,13 +172,13 @@ def game(hp):
                         elif selection == "right":
                             print("You go through the right passage. From "
                                   "all around you, different foes appear!")
-                            hp = fight(hp, "Zombie", 5, False)
+                            hp = fight(hp, dmg_multiplier, "Zombie", 5, False)
                             if hp == 0:
                                 return
-                            hp = fight(hp, "Poisonous Bat", 10, False)
+                            hp = fight(hp, dmg_multiplier, "Poisonous Bat", 10, False)
                             if hp == 0:
                                 return
-                            hp = fight(hp, "Troll", 20, False)
+                            hp = fight(hp, dmg_multiplier, "Troll", 20, False)
                             if hp == 0:
                                 return
                             print("With the trio dealt with, you find a key "
@@ -233,7 +233,23 @@ def main():
     to play again """
     while True:
         # Starts the game and gives the player a starting health of 20
-        game(20)
+        while True:
+            print("Choose a character:\n"
+                  "Ogre: 30HP, 75% damage\n"
+                  "Human: 20HP, 100% damage\n"
+                  "Elf: 15HP, 125% damage")
+            selection = input("Ogre, Human, or Elf?\n").lower()
+            if selection == "ogre":
+                game(30, 0.75)
+                break
+            elif selection == "human":
+                game(20, 1)
+                break
+            elif selection == "elf":
+                game(15, 1.25)
+                break
+            else:
+                print("Invalid choice, try again.")
         while True:
             selection = input("Would you like to play again? Yes or no?\n"). \
                 lower()
