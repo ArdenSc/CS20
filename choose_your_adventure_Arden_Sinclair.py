@@ -34,6 +34,7 @@ def fight(hp, dmg_multiplier, enemy, enemy_hp, running_allowed=True):
                         else:
                             damage = round(randint(3, 5) * dmg_multiplier)
                             if randint(0, 1) == 0:
+                                print("Critical hit!")
                                 damage *= 2
                             enemy_hp -= damage
                             enemy_hp = enemy_hp if enemy_hp > 0 else 0
