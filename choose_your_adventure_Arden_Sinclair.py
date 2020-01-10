@@ -32,7 +32,7 @@ def fight(hp, dmg_multiplier, enemy, enemy_hp, running_allowed=True):
                         if randint(0, 4) == 0:
                             print("Your heavy attack missed!")
                         else:
-                            damage = randint(3, 5) * dmg_multiplier
+                            damage = round(randint(3, 5) * dmg_multiplier)
                             if randint(0, 1) == 0:
                                 damage *= 2
                             enemy_hp -= damage
@@ -40,7 +40,7 @@ def fight(hp, dmg_multiplier, enemy, enemy_hp, running_allowed=True):
                             print(f"Your heavy attack did {damage} damage!")
                         break
                     elif selection in ("light", "light attack"):
-                        damage = randint(1, 3) * dmg_multiplier
+                        damage = round(randint(1, 3) * dmg_multiplier)
                         enemy_hp -= damage
                         enemy_hp = enemy_hp if enemy_hp > 0 else 0
                         print(f"Your light attack did {damage} damage!")
@@ -155,7 +155,7 @@ def game(hp, dmg_multiplier):
                             while True:
                                 selection = input("Try the key or "
                                                   "run away?\n").lower()
-                                if selection in ("try the key", "key"):
+                                if selection in ("try the key", "key", "try", "try it"):
                                     print("The key fits and turns, revealing "
                                           "a room full of gold and gems!\n"
                                           "Congratulations, you win!")
@@ -191,7 +191,7 @@ def game(hp, dmg_multiplier):
                                 selection = input("Try the key or "
                                                   "run away?\n").lower()
                                 if selection in ("try the key", "key",
-                                                 "try it"):
+                                                 "try it", "try"):
                                     print("The key fits and turns, revealing "
                                           "a room full of gold and gems!\n"
                                           "Congratulations, you win!")
