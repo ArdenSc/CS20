@@ -155,7 +155,8 @@ def game(hp, dmg_multiplier):
                             while True:
                                 selection = input("Try the key or "
                                                   "run away?\n").lower()
-                                if selection in ("try the key", "key", "try", "try it"):
+                                if selection in ("try the key", "key", "try",
+                                                 "try it"):
                                     print("The key fits and turns, revealing "
                                           "a room full of gold and gems!\n"
                                           "Congratulations, you win!")
@@ -175,7 +176,8 @@ def game(hp, dmg_multiplier):
                             hp = fight(hp, dmg_multiplier, "Zombie", 5, False)
                             if hp == 0:
                                 return
-                            hp = fight(hp, dmg_multiplier, "Poisonous Bat", 10, False)
+                            hp = fight(hp, dmg_multiplier, "Poisonous Bat", 10,
+                                       False)
                             if hp == 0:
                                 return
                             hp = fight(hp, dmg_multiplier, "Troll", 20, False)
